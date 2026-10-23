@@ -1,0 +1,1 @@
+{"name":"califnco-water-commerce","private":true,"scripts":{"start":"node server.js","check":"node --check app.js"},"dependencies":{}}

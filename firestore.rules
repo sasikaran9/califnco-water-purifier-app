@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /products/{id} { allow read: if true; allow write: if request.auth != null && request.auth.token.admin == true; }
+    match /users/{uid} { allow read, write: if request.auth != null && request.auth.uid == uid || request.auth.token.admin == true; }
+    match /orders/{id} { allow create: if request.auth != null; allow read: if request.auth != null && (resource.data.userId == request.auth.uid || request.auth.token.admin == true || resource.data.dealerId == request.auth.uid); allow update: if request.auth.token.admin == true; }
+    match /services/{id} { allow create: if request.auth != null; allow read, update: if request.auth.token.admin == true || resource.data.userId == request.auth.uid; }
+  }
+}
